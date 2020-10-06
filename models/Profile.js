@@ -21,6 +21,9 @@ const ProfileSchecma = new mongoose.Schema({
   bio: {
     type: String
   },
+  madera_id: {
+    type: String
+  },
   social: {
     twitter: {
       type: String
