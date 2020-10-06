@@ -45,7 +45,6 @@ router.post(
       location,
       position,
       bio,
-      madera_id,
       twitter,
       linkedin,
       facebook,
@@ -60,7 +59,6 @@ router.post(
     if (location) profileFields.location = location;
     if (position) profileFields.position = position;
     if (bio) profileFields.bio = bio;
-    if (madera_id) profileFields.madera_id = madera_id;
 
     // Build social object
     profileFields.social = {};
