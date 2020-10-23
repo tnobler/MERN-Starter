@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { login } from '../actions/auth';
 import {
   IonButton,
   IonCol,
@@ -14,51 +16,40 @@ import {
   IonInput
 } from '@ionic/react';
 import { personCircle } from 'ionicons/icons';
-import { useHistory } from 'react-router';
-import axios from 'axios';
 
-interface ContainerProps {}
+import { Link, Redirect } from 'react-router-dom';
 
-const Signup: React.FC<ContainerProps> = () => {
-  const history = useHistory();
-  const [name, setName] = useState<string>('');
+interface ContainerProps {
+  login: any;
+  isAuthenticated: boolean;
+}
+
+const Login: React.FC<ContainerProps> = ({ login, isAuthenticated }) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  const handleLogin = () => {
-    //validate inputs code not shown
-    const signupData = {
-      name: name,
-      email: email,
-      password: password
-    };
+  const handleLogin = async (e: any) => {
+    e.preventDefault();
 
-    const api = axios.create({
-      baseURL: `http://localhost:5000/api/v1`
-    });
-
-    api
-      .post('/users', signupData)
-      .then(res => {
-        history.push('/dashboard/' + email);
-      })
-      .catch(error => {
-        // setMessage('Auth failure! Please create an account');
-        // setIserror(true);
-      });
+    login({ email, password });
   };
+
+  // Redirect if Logged in
+  if (isAuthenticated) {
+    return <Redirect to='/dashboard' />;
+  }
 
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Signup</IonTitle>
+          <IonTitle>Login</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse='condense'>
           <IonToolbar>
-            <IonTitle size='large'>Signup</IonTitle>
+            <IonTitle size='large'>Login</IonTitle>
           </IonToolbar>
         </IonHeader>
 
@@ -75,21 +66,9 @@ const Signup: React.FC<ContainerProps> = () => {
           <IonRow>
             <IonCol>
               <IonItem>
-                <IonLabel position='floating'> Name</IonLabel>
-                <IonInput
-                  type='text'
-                  value={name}
-                  onIonChange={e => setName(e.detail.value!)}
-                ></IonInput>
-              </IonItem>
-            </IonCol>
-          </IonRow>
-
-          <IonRow>
-            <IonCol>
-              <IonItem>
                 <IonLabel position='floating'> Email</IonLabel>
                 <IonInput
+                  name='email'
                   type='email'
                   value={email}
                   onIonChange={e => setEmail(e.detail.value!)}
@@ -103,6 +82,7 @@ const Signup: React.FC<ContainerProps> = () => {
               <IonItem>
                 <IonLabel position='floating'> Password</IonLabel>
                 <IonInput
+                  name='password'
                   type='password'
                   value={password}
                   onIonChange={e => setPassword(e.detail.value!)}
@@ -114,13 +94,13 @@ const Signup: React.FC<ContainerProps> = () => {
           <IonRow>
             <IonCol>
               <p style={{ fontSize: 'small' }}>
-                By clicking Signup you agree to our <a href='#'>Policy</a>
+                By clicking Login you agree to our <a href='/'>Policy</a>
               </p>
               <IonButton expand='block' onClick={handleLogin}>
-                Signup
+                Login
               </IonButton>
               <p style={{ fontSize: 'medium' }}>
-                Already have an account? <a href='/login'>Login!</a>
+                Don't have an account? <Link to='/signup'>Signup!</Link>
               </p>
             </IonCol>
           </IonRow>
@@ -130,4 +110,8 @@ const Signup: React.FC<ContainerProps> = () => {
   );
 };
 
-export default Signup;
+const mapStateToProps = (state: { auth: any }) => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, { login })(Login);

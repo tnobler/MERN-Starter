@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import {
   IonButton,
   IonCol,
@@ -9,10 +11,17 @@ import {
   IonTitle,
   IonToolbar
 } from '@ionic/react';
-import Signup from '../components/Signup';
 import './Landing.css';
 
-const Landing: React.FC = () => {
+interface ContainerProps {
+  isAuthenticated: boolean;
+}
+
+const Landing: React.FC<ContainerProps> = ({ isAuthenticated }) => {
+  if (isAuthenticated) {
+    return <Redirect to='/dashboard' />;
+  }
+
   return (
     <IonPage>
       <IonHeader>
@@ -56,10 +65,13 @@ const Landing: React.FC = () => {
             </IonCol>
           </IonRow>
         </div>
-        {/* Login */}
       </IonContent>
     </IonPage>
   );
 };
 
-export default Landing;
+const mapStateToProps = (state: { auth: any }) => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps)(Landing);
