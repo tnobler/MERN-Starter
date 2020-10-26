@@ -8,7 +8,8 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  LOGOUT
+  LOGOUT,
+  CLEAR_PROFILE
 } from './types';
 
 interface IProps {
@@ -108,5 +109,6 @@ export const login = ({ email, password }: IProps) => async (dispatch: any) => {
 // Logout / Clear Profile
 
 export const logout = () => (dispatch: any) => {
+  dispatch({ type: CLEAR_PROFILE });
   dispatch({ type: LOGOUT });
 };

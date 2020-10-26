@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { IonToast } from '@ionic/react';
 import { connect } from 'react-redux';
-import { closeOutline } from 'ionicons/icons';
+// import { closeOutline } from 'ionicons/icons';
 
 interface IAlertProps {
   alerts: any;

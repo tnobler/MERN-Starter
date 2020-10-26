@@ -13,8 +13,9 @@ import {
   IonItem,
   IonRouterOutlet
 } from '@ionic/react';
-import { logOutOutline } from 'ionicons/icons';
 import { logout } from '../actions/auth';
+
+import { logOutOutline, speedometerOutline } from 'ionicons/icons';
 
 interface ContainerProps {
   logout: any;
@@ -33,6 +34,10 @@ const NavMenu: React.FC<ContainerProps> = ({
         </IonButton>
       </IonItem> */}
 
+      <IonItem href='/dashboard'>
+        <IonLabel>Dashboard</IonLabel>
+        <IonIcon icon={speedometerOutline} />
+      </IonItem>
       <IonItem href='/properties'>
         <IonLabel>Properties</IonLabel>
       </IonItem>

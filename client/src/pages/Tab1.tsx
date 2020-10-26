@@ -1,13 +1,11 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import {
-  IonButton,
   IonContent,
   IonHeader,
   IonPage,
   IonTitle,
   IonToolbar
 } from '@ionic/react';
-import AppContext from '../context';
 
 import './Tab1.css';
 
