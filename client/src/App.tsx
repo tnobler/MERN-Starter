@@ -19,6 +19,7 @@ import Tab3 from './pages/Tab3';
 import Landing from './pages/Landing';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
+import Login2 from './pages/Login2';
 import Alert from './components/Alert';
 import NavMenu from './components/NavMenu';
 import PrivateRoute from './components/PrivateRoute';
@@ -80,6 +81,7 @@ const App: React.FC = () => {
                 <Route path='/tab3' component={Tab3} />
                 <Route path='/signup' component={Signup} exact={true} />
                 <Route path='/login' component={Login} exact={true} />
+                <Route path='/login2' component={Login2} exact={true} />
                 <PrivateRoute
                   path='/dashboard'
                   component={Dashboard}

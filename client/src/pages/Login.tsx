@@ -18,7 +18,6 @@ import {
 import { personCircle } from 'ionicons/icons';
 
 import { Link, Redirect } from 'react-router-dom';
-// import { getCurrentProfile } from '../actions/profile';
 
 interface ContainerProps {
   login: any;
@@ -32,7 +31,7 @@ const Login: React.FC<ContainerProps> = ({ login, isAuthenticated }) => {
   const handleLogin = async (e: any) => {
     e.preventDefault();
 
-    await login({ email, password });
+    login({ email, password });
   };
 
   // Redirect if Logged in
